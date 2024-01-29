@@ -1,0 +1,28 @@
+*{
+    box-sizing: border-box;
+    margin: 0px;
+}
+.card1{
+    margin-top: 35px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap:40px;
+}
+#scancard{
+    border: 5px solid #4D90FE;
+    border-radius: 15px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    width:400px;
+    height:500px;
+}
+#text1{
+    color:#4D90FE;
+    font-size: 100px;
+}
+#text2{
+    font-size: 20px;
+    margin: 20px;
+}

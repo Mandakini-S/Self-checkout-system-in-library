@@ -1,0 +1,45 @@
+*{
+    box-sizing: border-box;
+    margin: 0px;
+}
+
+#Tulogo{
+    width:100px;
+    height:100px;
+    margin-top: 50px;
+    margin-left: 100px;
+
+}
+
+#companylogo{
+    width:150px;
+    height:150px;
+    margin-top: 20px;
+    margin-right: 100px;
+}
+
+.Header{
+    display: flex;
+    justify-content: space-between;
+    background-color: #4D90FE;
+    height:200px;
+}
+
+#heading{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    
+
+}
+#heading h1{
+    font-size: 35px;
+}
+
+
+#heading h1,
+#heading h4,
+#heading h2 {
+    color: white;
+    margin:3px;
+}
