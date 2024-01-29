@@ -12,7 +12,7 @@ const ScanCard = () => {
         // For example, check if the card is valid
 
         // Once the card is scanned and validated, navigate to the new page
-        navigate("/new-page"); // Replace "/new-page" with the desired path
+        navigate("/home"); // Replace "/new-page" with the desired path
     };
 
     return (
@@ -23,9 +23,9 @@ const ScanCard = () => {
                 <h3 id="text2">Your card below for book transaction.</h3>
                 <FontAwesomeIcon icon={faArrowDown} style={{ color: '#4D90FE', fontSize: '40px' }} />
                 {/* Simulated button for scanning RFID card */}
-                {/* <button onClick={handleRFIDScan} className="scan-button">
+                <button onClick={handleRFIDScan} className="scan-button">
                     Scan RFID Card
-                </button> */}
+                </button>
             </div>
         </div>
     );
