@@ -5,7 +5,7 @@ import ScanCard from "./Components/ScanCard/ScanCard";
 import Home from "./Components/UserHome/Home";
 import EnterBook from "./Components/EnterBook/EnterBook";
 import AdminHome from "./Components/AdminHome/AdminHome";
-
+import LoginPage from "./Components/LoginPage/LoginPage";
 function App() {
   return (
     <div className="App">
@@ -16,6 +16,7 @@ function App() {
     <Route path="/home" element={<Home/>} />
     <Route path="/adminhome" element={<AdminHome/>} />
     <Route path="/addbook" element={<EnterBook/>} />
+    <Route path="/login" element={<LoginPage/>} />
     </Routes>
     
 </BrowserRouter>
