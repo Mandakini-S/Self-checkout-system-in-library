@@ -1,0 +1,35 @@
+*{
+    box-sizing: border-box;
+    margin: 0px;
+}
+
+form{
+    display: flex;
+    flex-direction: column;
+    gap: 25px;
+    
+    
+}
+.scan-button{
+    background-color: #4D90FE;
+    border: 1px solid #4D90FE;
+    border-radius: 7px;
+    height: 40px;
+    margin: 7px;
+    color: white;
+    font-size: 20px;
+    font-weight: 600;
+  }
+  #scancard1{
+    border: 5px solid #4D90FE;
+    border-radius: 15px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    width:60%;
+    height:500px;
+    gap: 30px;
+    margin-top: 40px;
+    margin-left: 20%;
+    align-items: center;
+}

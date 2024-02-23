@@ -5,6 +5,7 @@ const person={
     name: "Mandakini Sapkota",
     faculty: "Electronics, Communication and Information Engineering",
     roll_no: "PAS077BEI023",
+    email: "pas077bei023@wrc.edu.np",
 }
 
 const tableData = [

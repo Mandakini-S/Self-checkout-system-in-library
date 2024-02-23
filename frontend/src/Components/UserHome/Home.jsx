@@ -1,12 +1,33 @@
-import React from "react";
+import React, { useState } from 'react';
 import { person } from "../assets/constant";
+import BorrowModal from '../Modal/BorrowModal';
+import ReturnModal from '../Modal/ReturnModal';
 import "./Home.css";
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faListUl} from "@fortawesome/free-solid-svg-icons";
+import { faListUl } from "@fortawesome/free-solid-svg-icons";
 import { tableData } from "../assets/constant";
 
 const Home = () => {
-    const props = { person,tableData };
+  const [showBorrowModal, setShowBorrowModal] = useState(false);
+  const [showReturnModal, setShowReturnModal] = useState(false);
+
+  const openBorrowModal = () => {
+    setShowBorrowModal(true);
+  };
+
+  const closeBorrowModal = () => {
+    setShowBorrowModal(false);
+  };
+
+  const openReturnModal = () => {
+    setShowReturnModal(true);
+  };
+
+  const closeReturnModal = () => {
+    setShowReturnModal(false);
+  };
+
+  const props = { person, tableData };
 
 
     return (<div className="Home">
@@ -51,11 +72,13 @@ const Home = () => {
       </tbody>
     </table>
     <div>
-        <button >Borrow Book</button>
-        <button >Return Book</button>
-    </div>
-    </div>
+        <button onClick={openBorrowModal}>Borrow Book</button>
+        <button onClick={openReturnModal}>Return Book</button>
+      </div>
 
+      <BorrowModal showModal={showBorrowModal} closeModal={closeBorrowModal} />
+      <ReturnModal showModal={showReturnModal} closeModal={closeReturnModal} />
+    </div>
     
 
     );
