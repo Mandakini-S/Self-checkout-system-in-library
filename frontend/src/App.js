@@ -6,6 +6,7 @@ import Home from "./Components/UserHome/Home";
 import EnterBook from "./Components/EnterBook/EnterBook";
 import AdminHome from "./Components/AdminHome/AdminHome";
 import LoginPage from "./Components/LoginPage/LoginPage";
+import Footer from "./Components/Footer/Footer";
 function App() {
   return (
     <div className="App">
@@ -18,7 +19,7 @@ function App() {
     <Route path="/addbook" element={<EnterBook/>} />
     <Route path="/login" element={<LoginPage/>} />
     </Routes>
-    
+    <Footer />
 </BrowserRouter>
     </div>
   );
