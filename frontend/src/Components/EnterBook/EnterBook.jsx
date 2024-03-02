@@ -3,6 +3,7 @@ import ConfirmModal from "../Modal/ConfirmModal";
 import "./EnterBook.css";
 
 const EnterBook = () => {
+  const [bookUid, setBookUid] = useState("");
   const [bookName, setBookName] = useState("");
   const [authorName, setAuthorName] = useState("");
   const [edition, setEdition] = useState("");
@@ -10,6 +11,10 @@ const EnterBook = () => {
   const [showModal, setShowModal] = useState(false);
   const [Question, setQuestion] = useState("");
   const [dataSummary, setDataSummary] = useState(""); // Declare dataSummary
+
+  const handleBookUidChange = (event) => {
+    setBookUid(event.target.value);
+  };
 
   const handleBookNameChange = (event) => {
     setBookName(event.target.value);
@@ -62,6 +67,10 @@ setQuestion(question);
     <div id="scancard1">
       <h1>Enter the following information.</h1>
       <form onSubmit={handleSubmit}>
+      <label>
+          Book Uid:
+          <input style={{marginLeft:"42px"}} type="text" value={bookUid} onChange={handleBookUidChange} />
+        </label>
         <label>
           Book Name:
           <input style={{marginLeft:"20px"}} type="text" value={bookName} onChange={handleBookNameChange} />

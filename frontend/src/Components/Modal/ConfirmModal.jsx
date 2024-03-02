@@ -1,6 +1,6 @@
 // ConfirmModal.jsx
 import React from 'react';
-
+import axios from 'axios';
 
 const ConfirmModal = ({ showModal, closeModal, dataSummary, Question }) => {
   const handleDialogClick = () => {
@@ -11,14 +11,25 @@ const ConfirmModal = ({ showModal, closeModal, dataSummary, Question }) => {
     event.stopPropagation();
   };
 
-  const handleSubmit = (event) => {
+  const handleSubmit = async (event) => {
     event.preventDefault();
-
-    // Do something with the submitted data, e.g., send it to a server
-    console.log("Submitted data:", { dataSummary });
-
-    // Close the modal after submitting
-    closeModal();
+  
+   
+    const postData = { dataSummary };
+  
+    try {
+      
+      const response = await axios.post('http://127.0.0.1:8000/bookapi/', postData);
+  
+      // Log the response 
+      console.log('Server response:', response.data);
+  
+      // Close the modal after submitting
+      closeModal();
+    } catch (error) {
+      // Handle error appropriately
+      console.error('Error submitting data:', error);
+    }
   };
 
   return (
