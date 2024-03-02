@@ -24,7 +24,7 @@ const ScanCard = () => {
         // Wait for the serial port to open.
         await port.open({ baudRate: 115200 });
     
-        const reader = port.readable.getReader();
+        /*const reader = port.readable.getReader();
         while (true) {
             const { value, done } = await reader.read();
             if (done) {
@@ -35,7 +35,7 @@ const ScanCard = () => {
             // value is a Uint8Array.
             console.log(value);
         }
-    
+    */
         // Text decoding
         const textDecoder = new TextDecoderStream();
         const readableStreamClosed = port.readable.pipeTo(textDecoder.writable);
