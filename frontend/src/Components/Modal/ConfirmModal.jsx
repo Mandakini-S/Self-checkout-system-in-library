@@ -3,7 +3,7 @@ import React from 'react';
 import axios from 'axios';
 
 const ConfirmModal = ({ showModal, closeModal, dataSummary, Question }) => {
-  const handleDialogClick = () => {
+   const handleDialogClick = () => {
     closeModal();
   };
 
@@ -12,36 +12,35 @@ const ConfirmModal = ({ showModal, closeModal, dataSummary, Question }) => {
   };
 
   const handleSubmit = async (event) => {
-  event.preventDefault();
+    event.preventDefault();
 
-  const postData = {
-    b_uid: "", // You might generate this value on the server-side or using some other mechanism
-    book_name: dataSummary.title,
-    author: dataSummary.author,
-    volume: dataSummary.category,
-  };
-
-  try {
-    const response = await axios.post(
-      "http://127.0.0.1:8000/bookapi/",
-      postData, // No need to stringify, axios handles it for you
-      {
-        headers: {
-          "Content-Type": "application/json",
-        },
-      }
-    );
+    const postData = {
+      b_uid: dataSummary.uid, // You might generate this value on the server-side or using some other mechanism
+      book_name: dataSummary.title,
+      author: dataSummary.author,
+      volume: dataSummary.category,
+    };
     console.log("Server data:", postData);
-    console.log("Server response:", response.data);
 
-    closeModal();
-  } catch (error) {
-    console.error("Error submitting data:", error);
-  }
-};
+    try {
+      const response = await axios.post(
+        "http://127.0.0.1:8000/bookapi/",
+        JSON.stringify(postData), // Convert postData to JSON string
+        {
+          headers: {
+            "Content-Type": "application/json",
+          },
+        }
+      );
+      console.log("Server data:", postData);
+      console.log("Server response:", response.data);
 
-
-  return (
+      closeModal();
+    } catch (error) {
+      console.error("Error submitting data:", error);
+    }
+  };
+ return (
     <div className={`modal-overlay ${showModal ? 'modal-open' : ''}`} onClick={handleDialogClick}>
       <dialog open={showModal} className="modal">
         <div id="scancard" onClick={handleContentClick}>
