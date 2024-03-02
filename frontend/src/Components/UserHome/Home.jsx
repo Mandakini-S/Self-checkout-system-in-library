@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { person } from "../assets/constant";
 import BorrowModal from '../Modal/BorrowModal';
 import ReturnModal from '../Modal/ReturnModal';
@@ -6,10 +6,28 @@ import "./Home.css";
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faListUl } from "@fortawesome/free-solid-svg-icons";
 import { tableData } from "../assets/constant";
+import axios from "axios";
 
 const Home = () => {
+
+ // to fetch data
+ const [students,setStudents] = useState([])
+ useEffect(()=>{
+   async function getALLStudent(){
+     try{
+       const students = await axios.get("https://dog.ceo/api/breeds/image/random")
+       console.log(students.data)
+       setStudents(students.data)
+     } catch(error){
+       console.log(error)
+     }
+   }
+   getALLStudent()
+ },[])
+
   const [showBorrowModal, setShowBorrowModal] = useState(false);
   const [showReturnModal, setShowReturnModal] = useState(false);
+
 
   const openBorrowModal = () => {
     setShowBorrowModal(true);
