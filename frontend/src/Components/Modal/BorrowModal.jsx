@@ -11,6 +11,11 @@ const BorrowModal = ({ showModal, closeModal }) => {
     
       const handleContentClick = (event) => {
         // Prevent the click event from propagating to the overlay
+        document.querySelector('openSerialPort').addEventListener('click', async () => {
+          //The Prompt will open to user to select's any serial port.
+          const port = await navigator.serial.requestPort(); 
+        });
+        
         event.stopPropagation();
       };
 
