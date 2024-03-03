@@ -6,13 +6,14 @@ import ReturnModal from '../Modal/ReturnModal';
 import "./Home.css";
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faListUl } from "@fortawesome/free-solid-svg-icons";
+import { useLocation } from 'react-router-dom';
 
 
-
-const Home = ({ responseData }) => {
+const Home = () => {
   const [showBorrowModal, setShowBorrowModal] = useState(false);
   const [showReturnModal, setShowReturnModal] = useState(false);
-
+const location = useLocation();
+const {responseData} = location.state;
   useEffect(() => {
     console.log('Response received from navigate:', responseData);
   }, [responseData]); // Run the effect only when responseData changes

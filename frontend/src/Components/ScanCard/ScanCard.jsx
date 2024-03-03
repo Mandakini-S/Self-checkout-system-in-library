@@ -14,6 +14,7 @@ const ScanCard = () => {
     const sendToBackend = async (value) => {
         const backendEndpoint = `http://127.0.0.1:8000/combined-data/${value}`;
         let responseData = null; // Variable to store the response data
+        
     
         try {
             const response = await axios.get(
@@ -35,6 +36,7 @@ const ScanCard = () => {
 
 </Routes> */}
 
+                //  navigate("/home", { responseData });
     
             
                 if (responseData.someValue) {
@@ -58,7 +60,11 @@ const ScanCard = () => {
         const textDecoder = new TextDecoderStream();
         const readableStreamClosed = port.readable.pipeTo(textDecoder.writable);
         const textReader = textDecoder.readable.getReader();
+        
 
+        // while (port.readable && keepReading){
+        //     reader = port.readable.getReader();
+        // }
         try {
             while (true) {
                 const { value, done } = await textReader.read();
@@ -66,15 +72,24 @@ const ScanCard = () => {
                     textReader.releaseLock();
                     break;
                 }
+
                 console.log(value);
 
                 // Send the scanned value to the backend
                 sendToBackend(value);
+                //await readable.close();
+                await readableStreamClosed;
             }
         } catch (error) {
             console.error('Error reading RFID data', error);
         }
+        textReader.cancel();
+        await port.close();
+        await port.forget();
+
+
     };
+
 
     return (
         <div className="card1">
