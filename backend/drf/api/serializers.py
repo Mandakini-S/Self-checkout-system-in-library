@@ -24,3 +24,12 @@ class StudentsSerializer(serializers.ModelSerializer):
         model = Students
         fields = ['sc_uid', 'name', 'roll_no']
         
+        
+
+class CartBookSerializer(serializers.ModelSerializer):
+    book_name = serializers.CharField(source='b_uid.book_name', read_only=True)
+
+    class Meta:
+        model = Cart
+        fields = ['accession_no', 'sc_uid', 'b_uid', 'book_name', 'issue_date', 'expiry_date']
+        
