@@ -19,7 +19,6 @@ const EnterBook = () => {
     "author": "",
     "category": "",
   });
-
   const handleBookUidChange = (event) => {
     setBookUid(event.target.value);
   };
