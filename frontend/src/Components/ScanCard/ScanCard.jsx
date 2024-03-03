@@ -1,48 +1,56 @@
+//ScanCard.jsx
 import React from "react";
+import axios from "axios";
 import { useNavigate } from "react-router-dom";
+import { BrowserRouter, Routes, Route } from "react-router-dom";
 import './ScanCard.css';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faArrowDown } from '@fortawesome/free-solid-svg-icons';
+import Home from "../UserHome/Home";
 
 const ScanCard = () => {
     const navigate = useNavigate();
 
-    const sendToBackend = async (scannedValue) => {
-        const backendEndpoint = 'http://127.0.0.1:8000/check-student-existence/';
-        
+    const sendToBackend = async (value) => {
+        const backendEndpoint = `http://127.0.0.1:8000/combined-data/${value}`;
+        let responseData = null; // Variable to store the response data
+    
         try {
-            const response = await fetch(backendEndpoint, {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json',
-                },
-                body: JSON.stringify({ sc_uid: scannedValue }),
-            });
+            const response = await axios.get(
+                backendEndpoint,
+                {
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                }
+            )
+    
+            if (response.status === 200) {
+                responseData = response.data; // Store the response data
+                navigate("/home", { state: { responseData } })
+               
+                console.log('Response from backend:', responseData);
+{/* <Routes>
+  <Route path="/home" element={<Home responseData={response.data} />} />
 
-            if (response.ok) {
-                const responseData = await response.json();
+</Routes> */}
 
-                // Check if the response indicates that the RFID exists
-                if (responseData.exists) {
-                    console.log('Scanned value exists in the backend');
-
-                    // Store the value (you can use localStorage or any state management)
-                    // For example, using localStorage:
-                    localStorage.setItem('scannedValue', scannedValue);
-
-                    // Navigate to /home
-                    navigate("/home");
-                } else {
-                    console.log('Scanned value does not exist in the backend');
+    
+            
+                if (responseData.someValue) {
+                    console.log('Some value exists in the response');
                 }
             } else {
-                console.error('Failed to send scanned value to backend');
+                console.error('Failed to get response from backend');
             }
         } catch (error) {
-            console.error('Error while sending data to backend', error);
+            console.error('Error while communicating with backend', error);
         }
+    
+        
     };
-
+    
+    
     const handleRFIDScan = async () => {
         const port = await navigator.serial.requestPort();
         await port.open({ baudRate: 115200 });
