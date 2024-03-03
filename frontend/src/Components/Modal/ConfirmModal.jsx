@@ -25,7 +25,7 @@ const ConfirmModal = ({ showModal, closeModal, dataSummary, Question }) => {
     try {
       const response = await axios.post(
         "http://127.0.0.1:8000/bookapi/",
-        JSON.stringify(postData), // Convert postData to JSON string
+        postData, // Convert postData to JSON string
         {
           headers: {
             "Content-Type": "application/json",

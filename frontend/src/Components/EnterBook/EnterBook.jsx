@@ -14,10 +14,10 @@ const EnterBook = () => {
   const [showModal, setShowModal] = useState(false);
   const [Question, setQuestion] = useState("");
   const [dataSummary, setDataSummary] = useState({
-    uid:"",
-    title: "",
-    author: "",
-    category: "",
+    "uid":"",
+    "title": "",
+    "author": "",
+    "category": "",
   });
 
   const handleBookUidChange = (event) => {
