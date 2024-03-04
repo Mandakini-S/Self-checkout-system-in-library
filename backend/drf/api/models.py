@@ -1,4 +1,3 @@
-
 # models.py
 
 
@@ -18,13 +17,19 @@ class Book(models.Model):
     volume = models.CharField(max_length=4)
 
 
+    
+class Students(models.Model):
+    sc_uid = models.CharField(max_length=36, primary_key=True)
+    name = models.CharField(max_length=100)
+    roll_no = models.CharField(max_length=15)
 
-from django.utils import timezone
+# models.py
+
 
 class Cart(models.Model):
     accession_no = models.IntegerField(primary_key=True)
-    sc_uid = models.CharField(max_length=20)
-    b_uid = models.CharField(max_length=36)
+    sc_uid = models.ForeignKey(Students, on_delete=models.CASCADE, related_name='cart_entries')
+    b_uid = models.ForeignKey(Book, on_delete=models.CASCADE)
     issue_date = models.DateField(default=timezone.now)
     expiry_date = models.DateField()
 
@@ -35,9 +40,3 @@ class Cart(models.Model):
 
     def __str__(self):
         return f"{self.accession_no}"
-    
-    
-class Students(models.Model):
-    sc_uid = models.CharField(max_length=36, primary_key=True)
-    name = models.CharField(max_length=100)
-    roll_no = models.CharField(max_length=15)

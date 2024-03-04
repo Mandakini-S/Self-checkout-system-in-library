@@ -2,10 +2,10 @@ import TU_Logo from "./Logo/TU.png";
 import CompanyLogo from "./Logo/Company.png";
 
 const person={
-    name: "Mandakini Sapkota",
+    name: "Admin",
     faculty: "Electronics, Communication and Information Engineering",
     roll_no: "PAS077BEI023",
-    email: "pas077bei023@wrc.edu.np",
+    email: "you are welcome to admin dashboard.",
 }
 
 const tableData = [

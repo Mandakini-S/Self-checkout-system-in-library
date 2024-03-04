@@ -35,15 +35,36 @@ const {responseData} = location.state;
   const closeReturnModal = () => {
     setShowReturnModal(false);
   };
+  const calculateFine = (expiryDate) => {
+    const expiryDateObj = new Date(expiryDate);
+    const today = new Date();
+  
+    // Calculate the difference in milliseconds
+    const differenceInMs = today - expiryDateObj;
+  
+    // Convert milliseconds to days
+    const differenceInDays = differenceInMs / (1000 * 60 * 60 * 24);
+  
+    // Fine calculation logic
+    const finePerDay = 1; // Change this value as per your requirement
+    const fine = differenceInDays > 0 ? differenceInDays * finePerDay : 0;
+  
+    return fine;
+  };
+  
 
   return (
     <div className="Home">
       <div id="desc">
         <div id="desc_left">
-          <h1 className="intro1">Welcome, {person.name}!</h1>
+          {responseData && responseData.length > 0 && (
+          <h1 className="intro1">Welcome, {responseData[0].student_name}!</h1>
+        )}
           <h3>{person.faculty}</h3>
         </div>
-        <div id="desc_right"><h4>Roll no: {person.roll_no}</h4></div>
+        <div id="desc_right">{responseData && responseData.length > 0 && (
+          <h4>Roll no: {responseData[0].roll_no}</h4>
+        )}</div>
       </div>
 
       <div id="title-box">
@@ -56,10 +77,10 @@ const {responseData} = location.state;
           <tr>
             <th>S.N</th>
             <th>Accession No</th>
-            <th>Title</th>
+            <th>Book Name</th>
             <th>Issued Date</th>
             <th>Returning Date</th>
-            <th>Due Days</th>
+            <th>Fine (Rs.)</th>
           </tr>
         </thead>
         <tbody>
@@ -69,10 +90,10 @@ const {responseData} = location.state;
       <tr key={index}>
         <td>{index + 1}</td>
         <td>{data.accession_no}</td>
-        <td>{data.b_uid}</td>
+        <td>{data.book_name}</td>
         <td>{data.issue_date}</td>
         <td>{data.expiry_date}</td>
-        <td>{data.sc_uid}</td>
+        <td>{calculateFine(data.expiry_date)}</td>
       </tr>
     );
   } catch (error) {

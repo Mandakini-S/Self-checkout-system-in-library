@@ -90,7 +90,7 @@ WSGI_APPLICATION = 'drf.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.mysql',
-        'NAME': 'library_db',
+        'NAME': 'nfc_db',
         'USER': 'root',
         'PASSWORD': '',
         'HOST': 'localhost',
