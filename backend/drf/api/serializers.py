@@ -33,3 +33,10 @@ class CartBookSerializer(serializers.ModelSerializer):
         model = Cart
         fields = ['accession_no', 'sc_uid', 'b_uid', 'book_name', 'issue_date', 'expiry_date']
         
+
+
+
+class RecentBooksSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Cart
+        fields = ['b_uid']

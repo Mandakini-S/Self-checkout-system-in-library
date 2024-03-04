@@ -1,7 +1,7 @@
 // EnterBook.jsx
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import ConfirmModal from "../Modal/ConfirmModal";
-import axios from 'axios';
+import { useLocation } from 'react-router-dom';
 
 import "./EnterBook.css";
 
@@ -14,15 +14,17 @@ const EnterBook = () => {
   const [showModal, setShowModal] = useState(false);
   const [Question, setQuestion] = useState("");
   const [dataSummary, setDataSummary] = useState({
-    "uid":"",
-    "title": "",
-    "author": "",
-    "category": "",
+    uid: "",  // Set to an empty string initially
+    title: "",
+    author: "",
+    category: "",
   });
-  const handleBookUidChange = (event) => {
-    setBookUid(event.target.value);
-  };
 
+  const location = useLocation();
+const {value} = location.state;
+  useEffect(() => {
+    console.log('Response received from navigate:', value);
+  }, [value]); // Run the effect only when responseData changes
   const handleBookNameChange = (event) => {
     setBookName(event.target.value);
   };
@@ -56,12 +58,12 @@ const EnterBook = () => {
     setError("");
 
     // Set question
-    const question = `Are you sure you want to add this book?`;
+    const question = "Are you sure you want to add this book?";
     setQuestion(question);
 
     // Update dataSummary state
     setDataSummary({
-      uid: bookUid,
+      uid: value,
       title: bookName,
       author: authorName,
       category: edition,
@@ -75,10 +77,10 @@ const EnterBook = () => {
     <div id="scancard1">
       <h1>Enter the following information.</h1>
       <form onSubmit={handleSubmit}>
-        <label>
-          Book Uid:
-          <input style={{marginLeft:"42px"}} type="text" value={bookUid} onChange={handleBookUidChange} />
-        </label>
+      <label>
+        Book Uid:
+        <input style={{marginLeft:"20px"}} type="text" value={value} />
+      </label>
         <label>
           Book Name:
           <input style={{marginLeft:"20px"}} type="text" value={bookName} onChange={handleBookNameChange} />

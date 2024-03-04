@@ -1,3 +1,4 @@
+//AddModal.jsx
 import React from 'react';
 import { useNavigate } from 'react-router-dom';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
@@ -8,8 +9,6 @@ const AddModal = ({ showModal, closeModal }) => {
 
   const handleContentClick = (event) => {
     event.stopPropagation();
-    // Simulate scanning a book and navigate to another page
-    // navigate('/addbook');
   };
 
   const handleRFIDScan = async () => {
@@ -33,7 +32,6 @@ const AddModal = ({ showModal, closeModal }) => {
             }
 
             console.log(value);
-
             // Send the scanned value to the backend
             navigate("/addbook", { state: { value } })
             // sendToBackend(value);

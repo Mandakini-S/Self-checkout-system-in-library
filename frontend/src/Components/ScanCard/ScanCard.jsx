@@ -107,4 +107,3 @@ const ScanCard = () => {
 };
 
 export default ScanCard;
-
