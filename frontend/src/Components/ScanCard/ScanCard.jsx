@@ -2,11 +2,9 @@
 import React from "react";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
-import { BrowserRouter, Routes, Route } from "react-router-dom";
 import './ScanCard.css';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faArrowDown } from '@fortawesome/free-solid-svg-icons';
-import Home from "../UserHome/Home";
 
 const ScanCard = () => {
     const navigate = useNavigate();
