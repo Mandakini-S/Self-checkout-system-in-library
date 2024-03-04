@@ -1,16 +1,18 @@
 // ConfirmModal.jsx
 import React from 'react';
 import axios from 'axios';
+import { useNavigate } from 'react-router-dom';
 
 const ConfirmModal = ({ showModal, closeModal, dataSummary, Question }) => {
-   const handleDialogClick = () => {
+  
+  const navigate = useNavigate();
+  const handleDialogClick = () => {
     closeModal();
   };
 
   const handleContentClick = (event) => {
     event.stopPropagation();
   };
-
   const handleSubmit = async (event) => {
     event.preventDefault();
 
@@ -20,7 +22,6 @@ const ConfirmModal = ({ showModal, closeModal, dataSummary, Question }) => {
       author: dataSummary.author,
       volume: dataSummary.category,
     };
-    console.log("Server data:", postData);
 
     try {
       const response = await axios.post(
@@ -32,8 +33,11 @@ const ConfirmModal = ({ showModal, closeModal, dataSummary, Question }) => {
           },
         }
       );
-      console.log("Server data:", postData);
+
       console.log("Server response:", response.data);
+
+      // Navigate to '/adminhome' upon successful post
+      navigate ("/adminhome");
 
       closeModal();
     } catch (error) {

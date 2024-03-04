@@ -38,7 +38,7 @@ const AdminHome = () => {
 
   return (<>
     <div id="desc_left">
-      <h1>Welcome, {props.person.name}!</h1>
+      <h1>Hello, {props.person.name}!</h1>
       <h3>{props.person.email}</h3>
     </div>
 

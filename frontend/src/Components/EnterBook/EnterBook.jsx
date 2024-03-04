@@ -79,7 +79,7 @@ const {value} = location.state;
       <form onSubmit={handleSubmit}>
       <label>
         Book Uid:
-        <input style={{marginLeft:"20px"}} type="text" value={value} />
+        <input style={{marginLeft:"40px"}} type="text" value={value} />
       </label>
         <label>
           Book Name:

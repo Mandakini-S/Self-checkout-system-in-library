@@ -3,9 +3,10 @@ import React from 'react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faArrowDown } from '@fortawesome/free-solid-svg-icons';
 import axios from "axios";
+import { useNavigate } from 'react-router-dom';
 
 const DeleteModal = ({ showModal, closeModal }) => {
-
+    const navigate = useNavigate();
     const handleDialogClick = () => {
         // Close the modal regardless of where the click occurs in the overlay
         closeModal();
@@ -33,7 +34,9 @@ const DeleteModal = ({ showModal, closeModal }) => {
                 console.log('Book deleted successfully');
                 // Close modal or perform other actions upon successful deletion
                 closeModal();
+                navigate ("/adminhome");
             } else {
+                
                 console.error('Failed to delete book');
             }
         } catch (error) {
