@@ -1,5 +1,5 @@
 // DeleteModal.jsx
-import React from 'react';
+import React ,{useState} from 'react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faArrowDown } from '@fortawesome/free-solid-svg-icons';
 import axios from "axios";
@@ -7,6 +7,7 @@ import { useNavigate } from 'react-router-dom';
 
 const DeleteModal = ({ showModal, closeModal }) => {
     const navigate = useNavigate();
+    const [successMessage, setSuccessMessage] = useState(false);
     const handleDialogClick = () => {
         // Close the modal regardless of where the click occurs in the overlay
         closeModal();
@@ -30,11 +31,14 @@ const DeleteModal = ({ showModal, closeModal }) => {
                 }
             );
 
-            if (response.status === 200) {
+            if (response.status === 204) {
                 console.log('Book deleted successfully');
-                // Close modal or perform other actions upon successful deletion
-                closeModal();
-                navigate ("/adminhome");
+                setSuccessMessage(true); // Set success message state to true
+
+      setTimeout(() => {
+        navigate("/adminhome"); // Navigate after a delay
+        closeModal();
+      }, 2000); // 2 seconds delay
             } else {
                 
                 console.error('Failed to delete book');
@@ -90,6 +94,11 @@ const DeleteModal = ({ showModal, closeModal }) => {
     <div className={`modal-overlay ${showModal ? 'modal-open' : ''}`} onClick={handleDialogClick}>
     <dialog open={showModal} className="modal">
       <div id="scancard" onClick={handleContentClick}>
+      {successMessage ? (
+            <div>
+              <h3>Data has been successfully deleted!</h3>
+            </div>
+          ) : (<>
         <h1 id="text1">SCAN </h1>
         <h3 id="text2">the tag in book below for deleting book.</h3>
         <FontAwesomeIcon icon={faArrowDown} style={{ color: '#4D90FE', fontSize: '40px' }} />
@@ -99,6 +108,8 @@ const DeleteModal = ({ showModal, closeModal }) => {
                 </button>
         {/* Add content specific to returning book modal */}
         <button className="btn" onClick={closeModal}>Close</button>
+        </>
+        )}
       </div>
     </dialog>
   </div>

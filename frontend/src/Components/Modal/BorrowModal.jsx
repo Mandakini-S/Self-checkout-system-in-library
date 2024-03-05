@@ -1,10 +1,11 @@
-import React from 'react';
+import React ,{useState}from 'react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faArrowDown } from '@fortawesome/free-solid-svg-icons';
 import axios from 'axios';
-
+import { useNavigate } from 'react-router-dom';
 const BorrowModal = ({ showModal, closeModal,responseData }) => {
-
+  const [successMessage, setSuccessMessage] = useState(false);
+  const navigate = useNavigate();
   const handleDialogClick = () => {
     // Close the modal regardless of where the click occurs in the overlay
     closeModal();
@@ -71,6 +72,12 @@ const sendToBackend = async (sc_uid, b_uid, issue_date, expiry_date) => {
       });
   
       console.log('Response to backend:', response);
+      setSuccessMessage(true); // Set success message state to true
+
+      setTimeout(() => {
+        navigate("/home"); // Navigate after a delay
+        closeModal();
+      }, 2000); // 2 seconds delay
     } catch (error) {
       console.error('Error sending data to backend:', error);
     }
@@ -84,6 +91,11 @@ const sendToBackend = async (sc_uid, b_uid, issue_date, expiry_date) => {
     <div className={`modal-overlay ${showModal ? 'modal-open' : ''}`} onClick={handleDialogClick}>
       <dialog open={showModal} className="modal">
         <div id="scancard">
+        {successMessage ? (
+            <div>
+              <h3>Data has been successfully entered!</h3>
+            </div>
+          ) : (<>
           <h1 id="text1">SCAN </h1>
           <h3 id="text2">the tag in book below for entry</h3>
           <FontAwesomeIcon icon={faArrowDown} style={{ color: '#4D90FE', fontSize: '40px' }} />
@@ -91,6 +103,7 @@ const sendToBackend = async (sc_uid, b_uid, issue_date, expiry_date) => {
             Scan RFID Card
           </button>
           <button className="btn" onClick={closeModal}>Close</button>
+          </>)}
         </div>
       </dialog>
     </div>

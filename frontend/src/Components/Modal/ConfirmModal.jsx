@@ -1,11 +1,11 @@
-// ConfirmModal.jsx
-import React from 'react';
+import React, { useState } from 'react';
 import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
 
 const ConfirmModal = ({ showModal, closeModal, dataSummary, Question }) => {
-  
+  const [successMessage, setSuccessMessage] = useState(false);
   const navigate = useNavigate();
+
   const handleDialogClick = () => {
     closeModal();
   };
@@ -13,11 +13,12 @@ const ConfirmModal = ({ showModal, closeModal, dataSummary, Question }) => {
   const handleContentClick = (event) => {
     event.stopPropagation();
   };
+
   const handleSubmit = async (event) => {
     event.preventDefault();
 
     const postData = {
-      b_uid: dataSummary.uid, // You might generate this value on the server-side or using some other mechanism
+      b_uid: dataSummary.uid,
       book_name: dataSummary.title,
       author: dataSummary.author,
       volume: dataSummary.category,
@@ -26,7 +27,7 @@ const ConfirmModal = ({ showModal, closeModal, dataSummary, Question }) => {
     try {
       const response = await axios.post(
         "http://127.0.0.1:8000/bookapi/",
-        postData, // Convert postData to JSON string
+        postData,
         {
           headers: {
             "Content-Type": "application/json",
@@ -36,28 +37,40 @@ const ConfirmModal = ({ showModal, closeModal, dataSummary, Question }) => {
 
       console.log("Server response:", response.data);
 
-      // Navigate to '/adminhome' upon successful post
-      navigate ("/adminhome");
+      setSuccessMessage(true); // Set success message state to true
 
-      closeModal();
+      setTimeout(() => {
+        navigate("/adminhome"); // Navigate after a delay
+        closeModal();
+      }, 2000); // 2 seconds delay
+
     } catch (error) {
       console.error("Error submitting data:", error);
     }
   };
- return (
+
+  return (
     <div className={`modal-overlay ${showModal ? 'modal-open' : ''}`} onClick={handleDialogClick}>
       <dialog open={showModal} className="modal">
         <div id="scancard" onClick={handleContentClick}>
-          <h3 id="text2">{Question}</h3>
-          <h3 style={{fontWeight:"normal", margin:"40px"}}>
-            Title: {dataSummary.title}<br />
-            Author: {dataSummary.author}<br />
-            Category: {dataSummary.category}
-          </h3>
-          <div>
-            <button className="btn" onClick={handleSubmit}>Submit</button>
-            <button className="btn" onClick={closeModal}>Close</button>
-          </div>
+          {successMessage ? (
+            <div>
+              <h3>Data has been successfully entered!</h3>
+            </div>
+          ) : (
+            <>
+              <h3 id="text2">{Question}</h3>
+              <h3 style={{ fontWeight: "normal", margin: "40px" }}>
+                Title: {dataSummary.title}<br />
+                Author: {dataSummary.author}<br />
+                Category: {dataSummary.category}
+              </h3>
+              <div>
+                <button className="btn" onClick={handleSubmit}>Submit</button>
+                <button className="btn" onClick={closeModal}>Close</button>
+              </div>
+            </>
+          )}
         </div>
       </dialog>
     </div>
@@ -65,6 +78,3 @@ const ConfirmModal = ({ showModal, closeModal, dataSummary, Question }) => {
 };
 
 export default ConfirmModal;
-
-
-

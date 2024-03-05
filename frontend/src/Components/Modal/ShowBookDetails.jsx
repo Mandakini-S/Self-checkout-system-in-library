@@ -51,7 +51,7 @@ const ShowBookDetails = () => {
                 </tr>
             </thead>
             <tbody>
-  {Array.isArray(responseData) ? (
+  {responseData.length > 0 ? (
     responseData.map((data, index) => {
       try {
         return (
@@ -76,7 +76,6 @@ const ShowBookDetails = () => {
     </tr>
   )}
 </tbody>
-
         </table>
     </div>
     );
