@@ -3,8 +3,10 @@ import React, { useEffect, useState } from 'react';
 import { useLocation } from 'react-router-dom';
 import { person } from "../assets/constant";
 import "./ShowBookDetails.css";
+// import "../UserHome/Home.css"
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faListUl } from "@fortawesome/free-solid-svg-icons";
+
 const ShowBookDetails = () => {
     const props = { person }
     const location = useLocation();
@@ -30,11 +32,7 @@ const ShowBookDetails = () => {
         return fine;
     };
 
-    return (<div>
-        {/* <div id="desc_left">
-        <h1 style={{fontSize:"30px",marginBottom:}}>Hello, {props.person.name}!</h1>
-        <h3 style={{fontWeight:"300", fontSize:"16px"}}>{props.person.email}</h3>
-      </div> */}
+    return (<div className='Home'>
 
         <div id="title-box" style={{ marginTop: "20px" }}>
             <FontAwesomeIcon icon={faListUl} style={{ color: "white", fontSize: '35px', margin: "14px" }} />
@@ -50,7 +48,7 @@ const ShowBookDetails = () => {
                     <th>Roll No:</th>
                     <th>Issued Date:</th>
                     <th>Returning Date:</th>
-                    <th>Fine:</th>
+                    <th>Fine (Rs.):</th>
                 </tr>
             </thead>
             <tbody>

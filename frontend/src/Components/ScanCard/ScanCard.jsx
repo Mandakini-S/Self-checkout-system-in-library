@@ -12,8 +12,8 @@ const ScanCard = () => {
     const sendToBackend = async (value) => {
         const backendEndpoint = `http://127.0.0.1:8000/combined-data/${value}`;
         let responseData = null; // Variable to store the response data
-        
-    
+
+
         try {
             const response = await axios.get(
                 backendEndpoint,
@@ -23,20 +23,13 @@ const ScanCard = () => {
                     },
                 }
             )
-    
+
             if (response.status === 200) {
                 responseData = response.data; // Store the response data
                 navigate("/home", { state: { responseData } })
-               
+
                 console.log('Response from backend:', responseData);
-{/* <Routes>
-  <Route path="/home" element={<Home responseData={response.data} />} />
 
-</Routes> */}
-
-                //  navigate("/home", { responseData });
-    
-            
                 if (responseData.someValue) {
                     console.log('Some value exists in the response');
                 }
@@ -46,11 +39,11 @@ const ScanCard = () => {
         } catch (error) {
             console.error('Error while communicating with backend', error);
         }
-    
-        
+
+
     };
-    
-    
+
+
     const handleRFIDScan = async () => {
         const port = await navigator.serial.requestPort();
         await port.open({ baudRate: 115200 });
@@ -58,7 +51,7 @@ const ScanCard = () => {
         const textDecoder = new TextDecoderStream();
         const readableStreamClosed = port.readable.pipeTo(textDecoder.writable);
         const textReader = textDecoder.readable.getReader();
-        
+
 
         // while (port.readable && keepReading){
         //     reader = port.readable.getReader();

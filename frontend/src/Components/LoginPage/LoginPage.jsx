@@ -1,65 +1,58 @@
-import React, { useState } from "react";
-import axios from 'axios';
-import "./LoginPage.css"
-import { useNavigate } from 'react-router-dom'
+import React, { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
+import "./LoginPage.css";
 
-const LoginPage = (props) => {
-  const [email, setEmail] = useState('')
-  const [password, setPassword] = useState('')
-  const [emailError, setEmailError] = useState('')
-  const [passwordError, setPasswordError] = useState('')
+const LoginPage = () => {
+  const [email, setEmail] = useState('');
+  const [password, setPassword] = useState('');
+  const [emailError, setEmailError] = useState('');
+  const [passwordError, setPasswordError] = useState('');
   const [authenticationError, setAuthenticationError] = useState('');
-  const navigate = useNavigate()
+  const navigate = useNavigate();
 
-  const onButtonClick = async () => {
-    // Set initial error values to empty
-    setEmailError('')
-    setPasswordError('')
+  const handleLogin = () => {
+    // Reset error messages
+    setEmailError('');
+    setPasswordError('');
     setAuthenticationError('');
 
     // Check if the user has entered both fields correctly
-    if ('' === email) {
-      setEmailError('Please enter your email')
-      return
+    if (email.trim() === '') {
+      setEmailError('Please enter your email');
+      return;
     }
 
     if (!/^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$/.test(email)) {
-      setEmailError('Please enter a valid email')
-      return
+      setEmailError('Please enter a valid email');
+      return;
     }
 
-    if ('' === password) {
-      setPasswordError('Please enter a password')
-      return
+    if (password.trim() === '') {
+      setPasswordError('Please enter a password');
+      return;
     }
 
-    if (password.length < 7) {
-      setPasswordError('The password must be 8 characters or longer')
-      return
+    if (password.length < 8) {
+      setPasswordError('The password must be 8 characters or longer');
+      return;
     }
 
-    try {
-      const response = await axios.post('/api/token/', { email, password });
-      const { access, refresh } = response.data;
+  
 
-      // Store the access token securely (localStorage in this example)
-      localStorage.setItem('accessToken', access);
-      localStorage.setItem('refreshToken', refresh);
-
-      // Navigate to the protected route (e.g., /adminhome)
+    if (email === 'admin@gmail.com' && password === 'admin521774') {
+      // Navigate to /adminhome for admin user
       navigate('/adminhome');
-    } catch (error) {
-      if (error.response && error.response.status === 401) {
-        setAuthenticationError('Invalid email or password. Please try again.');
-      } else {
-        setAuthenticationError('An error occurred. Please try again later.');
-      }
+
+    } else {
+      // Handle authentication error
+      setAuthenticationError('Incorrect email or password');
     }
   };
+
   return (
     <div className={'mainContainer'}>
       <div className={'titleContainer'}>
-        <div>Login</div>
+        <div>Admin Login</div>
       </div>
       <br />
       <div className={'inputContainer'}>
@@ -80,15 +73,15 @@ const LoginPage = (props) => {
           onChange={(ev) => setPassword(ev.target.value)}
           className={'inputBox'}
         />
-
         <label className="errorLabel">{passwordError}</label>
       </div>
       <br />
       <div className={'inputContainer'}>
-        <input className={'inputButton'} type="button" onClick={onButtonClick} value={'Log in'} />
+        <input className={'inputButton'} type="button" onClick={handleLogin} value={'Log in'} />
       </div>
+      {authenticationError && <div className="errorLabel">{authenticationError}</div>}
     </div>
-  )
-}
+  );
+};
 
-export default LoginPage
+export default LoginPage;

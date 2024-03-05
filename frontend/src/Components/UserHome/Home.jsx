@@ -110,7 +110,7 @@ const {responseData} = location.state;
         <button onClick={openReturnModal}>Return Book</button>
       </div>
 
-      <BorrowModal showModal={showBorrowModal} closeModal={closeBorrowModal} />
+      <BorrowModal showModal={showBorrowModal} closeModal={closeBorrowModal} responseData={responseData} />
       <ReturnModal showModal={showReturnModal} closeModal={closeReturnModal} />
     </div>
   );
