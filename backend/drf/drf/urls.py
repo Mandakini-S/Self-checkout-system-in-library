@@ -1,4 +1,3 @@
-
 # urls.py
 
 from django.contrib import admin
@@ -20,7 +19,8 @@ urlpatterns = [
     # Include router.urls to automatically include URLs for viewsets
     path('', include(router.urls)),
     # For custom actions, define a path separately
-    path('check-student-existence/', views.StudentsModelViewSet.as_view({'post': 'check_student_existence'}), name='check_student_existence'),
+    # path('check-student-existence/', views.StudentsModelViewSet.as_view({'post': 'check_student_existence'}), name='check_student_existence'),
     path('combined-data/', views.combined_data, name='combined_data'),
     path('combined-data/<str:sc_uid>/', views.combined_data, name='combined_data'),
+    path('book-detail/<str:b_uid>/', views.book_detail, name='book_detail'),
 ]

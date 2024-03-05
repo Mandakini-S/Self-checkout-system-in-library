@@ -1,4 +1,3 @@
-
 # serializers.py
 
 from rest_framework import serializers
@@ -24,12 +23,15 @@ class StudentsSerializer(serializers.ModelSerializer):
         model = Students
         fields = ['sc_uid', 'name', 'roll_no']
         
-        
+# serializers.py
+# serializers.py
 
 class CartBookSerializer(serializers.ModelSerializer):
     book_name = serializers.CharField(source='b_uid.book_name', read_only=True)
+    student_name = serializers.CharField(source='sc_uid.name', read_only=True)
+    roll_no = serializers.CharField(source='sc_uid.roll_no', read_only=True)
 
     class Meta:
         model = Cart
-        fields = ['accession_no', 'sc_uid', 'b_uid', 'book_name', 'issue_date', 'expiry_date']
-        
+        fields = ['accession_no', 'sc_uid', 'b_uid', 'book_name', 'student_name', 'roll_no', 'issue_date', 'expiry_date']
+
