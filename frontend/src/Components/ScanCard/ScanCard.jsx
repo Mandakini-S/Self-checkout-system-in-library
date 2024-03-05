@@ -65,7 +65,9 @@ const ScanCard = () => {
                 }
 
                 console.log(value);
+                const uid = value.trim(); // Remove leading and trailing whitespace characters
 
+                localStorage.setItem("sc_uid", uid);
                 // Send the scanned value to the backend
                 sendToBackend(value);
                 //await readable.close();

@@ -33,7 +33,8 @@ const ReturnModal = ({ showModal, closeModal }) => {
         console.log(value);
     
         // Extract the UID from the scanned value
-        const uid = value;
+        const uid = value.trim(); // Remove leading and trailing whitespace characters
+
   
         // Send the UID to the backend to delete the book
         sendToBackend(uid);
@@ -42,6 +43,9 @@ const ReturnModal = ({ showModal, closeModal }) => {
     } catch (error) {
       console.error('Error reading RFID data', error);
     }
+    textReader.cancel();
+    await port.close();
+    await port.forget();
   };
   
   const sendToBackend = async (b_uid) => {
