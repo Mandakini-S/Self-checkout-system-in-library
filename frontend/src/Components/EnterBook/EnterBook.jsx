@@ -1,5 +1,8 @@
-import React, { useState } from "react";
+// EnterBook.jsx
+import React, { useState, useEffect } from "react";
 import ConfirmModal from "../Modal/ConfirmModal";
+import { useLocation } from 'react-router-dom';
+
 import "./EnterBook.css";
 
 const EnterBook = () => {
@@ -10,12 +13,18 @@ const EnterBook = () => {
   const [error, setError] = useState("");
   const [showModal, setShowModal] = useState(false);
   const [Question, setQuestion] = useState("");
-  const [dataSummary, setDataSummary] = useState(""); // Declare dataSummary
+  const [dataSummary, setDataSummary] = useState({
+    uid: "",  // Set to an empty string initially
+    title: "",
+    author: "",
+    category: "",
+  });
 
-  const handleBookUidChange = (event) => {
-    setBookUid(event.target.value);
-  };
-
+  const location = useLocation();
+const {value} = location.state;
+  useEffect(() => {
+    console.log('Response received from navigate:', value);
+  }, [value]); // Run the effect only when responseData changes
   const handleBookNameChange = (event) => {
     setBookName(event.target.value);
   };
@@ -35,8 +44,8 @@ const EnterBook = () => {
   const handleCloseModal = () => {
     setShowModal(false);
   };
- 
-  const handleSubmit = (event) => {
+
+  const handleSubmit = async (event) => {
     event.preventDefault();
 
     // Check if any of the fields is empty
@@ -44,20 +53,21 @@ const EnterBook = () => {
       setError("Please fill in all the fields");
       return;
     }
+
     // Reset error state
     setError("");
-//Set question
-const question = `Are you sure you want to add this book?`;
 
-setQuestion(question);
-
-    // Construct a summary of the submitted data
-    const summary = `Book Name: ${bookName}
-     Author Name: ${authorName}
-     Edition: ${edition}`;
+    // Set question
+    const question = "Are you sure you want to add this book?";
+    setQuestion(question);
 
     // Update dataSummary state
-    setDataSummary(summary);
+    setDataSummary({
+      uid: value,
+      title: bookName,
+      author: authorName,
+      category: edition,
+    });
 
     // Open the confirmation modal
     handleOpenModal();
@@ -68,9 +78,9 @@ setQuestion(question);
       <h1>Enter the following information.</h1>
       <form onSubmit={handleSubmit}>
       <label>
-          Book Uid:
-          <input style={{marginLeft:"42px"}} type="text" value={bookUid} onChange={handleBookUidChange} />
-        </label>
+        Book Uid:
+        <input style={{marginLeft:"40px"}} type="text" value={value} />
+      </label>
         <label>
           Book Name:
           <input style={{marginLeft:"20px"}} type="text" value={bookName} onChange={handleBookNameChange} />
@@ -89,7 +99,7 @@ setQuestion(question);
 
       {/* Include the ConfirmModal component */}
       <ConfirmModal showModal={showModal} closeModal={handleCloseModal} Question={Question} dataSummary={dataSummary} />
-      </div>
+    </div>
   );
 };
 
