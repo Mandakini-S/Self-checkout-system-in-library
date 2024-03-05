@@ -1,5 +1,4 @@
-
-import React, { useEffect, useState } from 'react';
+import React, { useEffect} from 'react';
 import { useLocation } from 'react-router-dom';
 import { person } from "../assets/constant";
 import "./ShowBookDetails.css";
@@ -52,32 +51,35 @@ const ShowBookDetails = () => {
                 </tr>
             </thead>
             <tbody>
-                {responseData && responseData.map((data, index) => {
-                    try {
-                        return (
-                            <tr key={index}>
-                                <td>{index + 1}</td>
-                                <td>{data.accession_no}</td>
-                                <td>{data.student_name}</td>
-                                <td>{data.roll_no}</td>
-                                <td>{data.issue_date}</td>
-                                <td>{data.expiry_date}</td>
-                                <td>{calculateFine(data.expiry_date)}</td>
-                            </tr>
-                        );
-                    } catch (error) {
-                        console.error('Error rendering table row:', error);
-                        return null;
-                    }
-                })}
+  {Array.isArray(responseData) ? (
+    responseData.map((data, index) => {
+      try {
+        return (
+          <tr key={index}>
+            <td>{index + 1}</td>
+            <td>{data.accession_no}</td>
+            <td>{data.student_name}</td>
+            <td>{data.roll_no}</td>
+            <td>{data.issue_date}</td>
+            <td>{data.expiry_date}</td>
+            <td>{calculateFine(data.expiry_date)}</td>
+          </tr>
+        );
+      } catch (error) {
+        console.error('Error rendering table row:', error);
+        return null;
+      }
+    })
+  ) : (
+    <tr>
+      <td colSpan="7">No data available</td>
+    </tr>
+  )}
+</tbody>
 
-            </tbody>
         </table>
     </div>
     );
 };
 
 export default ShowBookDetails;
-
-
-

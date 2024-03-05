@@ -18,7 +18,7 @@ const ScanModal = ({ showModal, closeModal }) => {
       };
 
       const sendToBackend = async (value) => {
-        const backendEndpoint = `http://127.0.0.1:8000/combined-data/${value}`;
+        const backendEndpoint =` http://127.0.0.1:8000/book-detail/${value}`;
         let responseData = null; // Variable to store the response data
 
 
