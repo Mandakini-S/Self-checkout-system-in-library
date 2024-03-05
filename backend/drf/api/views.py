@@ -74,3 +74,26 @@ def book_detail(request, b_uid):
     
     except Exception as e:
         return Response({'error': str(e)}, status=status.HTTP_500_INTERNAL_SERVER_ERROR)
+    
+    
+    
+    
+    
+    
+@api_view(['DELETE'])
+def delete_book_from_cart(request, b_uid):
+    try:
+        # Filter and delete all cart entries related to the provided b_uid
+        cart_entries = Cart.objects.filter(b_uid=b_uid)
+        cart_entries.delete()
+
+        # Return success message
+        return Response({'message': f'All cart entries related to book with b_uid {b_uid} have been deleted'}, status=status.HTTP_204_NO_CONTENT)
+
+    except Exception as e:
+        # Return error message if deletion fails
+        return Response({'error': str(e)}, status=status.HTTP_500_INTERNAL_SERVER_ERROR)
+    
+    
+    
+    

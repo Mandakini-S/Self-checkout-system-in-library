@@ -23,4 +23,5 @@ urlpatterns = [
     path('combined-data/', views.combined_data, name='combined_data'),
     path('combined-data/<str:sc_uid>/', views.combined_data, name='combined_data'),
     path('book-detail/<str:b_uid>/', views.book_detail, name='book_detail'),
+     path('delete-book-from-cart/<str:b_uid>/', views.delete_book_from_cart, name='delete_book_from_cart'),
 ]
