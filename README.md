@@ -1,4 +1,4 @@
-# Self Checkout System in Library
+# Self Checkout System in library
 
 The self-checkout system is a user-friendly library management solution that incorporates NFC (Near-field communication) technology, enabling streamlined access, efficient self-checkouts, and enhanced security measures for a modernized experience.
 
